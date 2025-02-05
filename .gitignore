@@ -1,49 +1,48 @@
-# Ignore node_modules and build files
-Backend/node_modules/
+# Ignore node_modules in both backend and frontend
+backend/node_modules/
+frontend/to-do/node_modules/
 
-# Ignore backend-specific node_modules (already added)
-Backend/node_modules/
+# Ignore logs and debug files for backend
+backend/*.log
+backend/npm-debug.log*
+backend/yarn-debug.log*
+backend/yarn-error.log*
 
-# Ignore logs and debug files
-Backend/*.log
-Backend/npm-debug.log*
-Backend/yarn-debug.log*
-Backend/yarn-error.log*
+# Ignore temporary files in backend
+backend/.env*  
+backend/.pnp.js  
+backend/.pnp/
 
-# Ignore temporary files
-Backend/.env*  # Make sure to include all .env variations
-Backend/.pnp.js  # For Yarn PnP support, if used
-Backend/.pnp/
+# Ignore build files for backend
+backend/dist/
+backend/build/
 
-# Ignore build files (if you transpile backend code from TypeScript or Babel)
-Backend/dist/
-Backend/build/
+# Ignore package-lock.json or yarn.lock for backend (optional)
+backend/package-lock.json
+backend/yarn.lock
 
-# Ignore package-lock.json or yarn.lock (optional, depending on your preference)
-Backend/package-lock.json
-Backend/yarn.lock
+# Ignore test reports for backend
+backend/coverage/
 
-# Ignore test reports
-Backend/coverage/
+# Ignore IDE/Editor configurations (backend-specific)
+backend/.idea/
+backend/.vscode/
 
-# Ignore IDE/Editor configurations (if working on backend code in an IDE)
-Backend/.idea/
-Backend/.vscode/
+# Ignore node_modules for frontend
+frontend/to-do/node_modules/
 
-Frontend/to-do/node_modules/
+# Ignore Yarn & npm cache files for frontend
+frontend/to-do/.pnp.js
+frontend/to-do/.pnp/
 
-# Ignore Yarn & npm cache files
-.pnp.js
-Frontend/to-do/.pnp/
-
-# Build, coverage, and log files
-Frontend/to-do/build/
-Frontend/to-do/coverage/
-Frontend/to-do/.next/  # If using Next.js
+# Ignore build and coverage files for frontend
+frontend/to-do/build/
+frontend/to-do/coverage/
+frontend/to-do/.next/
 
 # OS-specific files
-.DS_Store  # macOS
-Thumbs.db  # Windows
+.DS_Store
+Thumbs.db
 
 # Environment files (contains secrets)
 .env
@@ -60,6 +59,6 @@ yarn-error.log*
 # Editor/IDE files
 .vscode/
 .idea/
-*.swp  # Vim swap files
-*.suo  # Visual Studio
-*.bak  # Backup files
+*.swp  
+*.suo  
+*.bak  
