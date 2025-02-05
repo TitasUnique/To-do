@@ -18,7 +18,7 @@ const AddTaskForm = ({ onClose }) => {
       window.alert("Please Fill All The Details !!");
     } else {
       const newTask = { text: NewtaskText, completed: false };
-      fetch("http://localhost:3001/tasks", {
+      fetch("https://to-do-git-main-titas-projects.vercel.app//api/tasks", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

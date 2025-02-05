@@ -7,7 +7,7 @@ const Tasks = ({ onAddCardOpen, onEditCardOpen }) => {
   const tasks = useSelector((state) => state.cardsData);
 
   useEffect(() => {
-    fetch("http://localhost:3001/tasks")
+    fetch("https://to-do-git-main-titas-projects.vercel.app//api/tasks") //http://localhost:3001/tasks
       .then((response) => {
         if (!response.ok) {
           throw new Error("Error fetching tasks");
@@ -27,7 +27,7 @@ const Tasks = ({ onAddCardOpen, onEditCardOpen }) => {
     const taskStatusUpdate = tasks.find((task) => task.id === taskId);
     const updatedTaskStatus = {...taskStatusUpdate, completed: !taskStatusUpdate.completed,};
 
-    fetch(`http://localhost:3001/tasks/${taskId}`, {
+    fetch(`https://to-do-git-main-titas-projects.vercel.app//api/tasks/${taskId}`, {
       method: "PUT",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ completed: updatedTaskStatus.completed }),
@@ -49,7 +49,7 @@ const Tasks = ({ onAddCardOpen, onEditCardOpen }) => {
   };
 
   const handelDelete = (taskId) => {
-    fetch(`http://localhost:3001/tasks/${taskId}`, {
+    fetch(`https://to-do-git-main-titas-projects.vercel.app//api/tasks/${taskId}`, {
       method: "DELETE",
     })
       .then((response) => {
