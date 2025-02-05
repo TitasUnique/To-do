@@ -1,0 +1,140 @@
+/* * {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  background-color: #f4f4f9;
+} */
+
+h1 {
+  text-align: center;
+  color: #333;
+  margin-bottom: 1vw;
+}
+
+.main-div {
+  width: 100%;
+  /* border: 1px solid black; */
+  /* height: 100vh; */
+  /* overflow: hidden; */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0;
+  background-color: #f4f4f9;
+  font-family: Arial, sans-serif;
+}
+
+.card-main-ul {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  align-items: center;
+  padding: 0;
+  list-style-type: none;
+  gap: 1vw;
+}
+
+.cards-li {
+  width: 20vw;
+  height: 25vw;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 2vw 0vw;
+  padding: 10px;
+  background-color: #fff;
+  border: 1px solid #ddd;
+  border-radius: 20px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.cards-li:hover {
+  transform: scale(1.04);
+  transition: transform 0.2s linear;
+}
+
+.card-task-data {
+  /* border: 1px solid black; */
+  min-width: 18vw;
+  height: 20vw;
+  margin: 1vw 0vw;
+  padding: 5px;
+}
+
+button {
+  color: white;
+  border: none;
+  padding: 5px 10px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.buttons-div {
+  min-width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+}
+
+.card-state-red {
+  background-color: rgb(255, 61, 61);
+  min-width: 20%;
+}
+
+.card-state-red:hover {
+  background-color: rgb(219, 53, 53);
+  min-width: 20%;
+}
+
+.card-state-green {
+  background-color: rgb(137, 201, 41);
+  min-width: 20%;
+}
+
+.card-state-green:hover {
+  background-color: rgb(110, 149, 50);
+  min-width: 20%;
+}
+
+.add-task-btn {
+  height: 30%;
+  width: 6%;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #fff;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.193);
+  border: 1px solid #ddd;
+}
+
+.add-task-btn:hover {
+  background-color: #cce0f5;
+}
+
+.add-task-size-btn {
+  font-size: 5vw;
+  font-weight: 100;
+  color: rgba(0, 0, 0, 0.605);
+}
+
+.card-del-btn {
+  background-color: rgb(249, 206, 75);
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.193);
+}
+
+.card-del-btn:hover {
+  background-color: rgb(254, 171, 37);
+}
+
+.edit-cardText-btn {
+  background-color: rgb(119, 187, 254);
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.193);
+}
+
+.edit-cardText-btn:hover {
+  background-color: rgb(74, 123, 236);
+}

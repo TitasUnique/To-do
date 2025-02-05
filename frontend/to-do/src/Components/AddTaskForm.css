@@ -1,0 +1,89 @@
+.blur {
+  position: absolute;
+  width: 100%;
+  height: 100vh;
+  margin: 0;
+  padding: 0;
+  z-index: 10;
+  background: rgba(0, 0, 0, 0.509);
+  backdrop-filter: blur(5px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 5;
+}
+
+.close-form-btn {
+  position: absolute;
+  z-index: 10;
+  top: 2vw;
+  left: 2vw;
+  width: 3%;
+  height: 5%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: rgb(235, 232, 240);
+  transition: background-color 0.5s ease;
+}
+
+.close-form-btn:hover {
+  background-color: rgb(0, 0, 0);
+  transition: background-color 0.5s ease;
+  cursor: pointer;
+}
+
+.close-form-btn:active {
+  background-color: rgba(105, 105, 105, 0.783);
+  border: 1px solid rgb(99, 99, 99);
+}
+
+.close-form-btn:hover i {
+  color: white;
+  transition: color 0.5s ease;
+}
+
+.close-form-btn>i {
+  font-size: clamp(2vw,2vw,5vw);
+  color: black;
+  transition: color 0.5s ease;
+}
+
+.add-task-form {
+  width: 35%;
+  height: 80vh;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  flex-direction: column;
+  background-color: rgba(78, 78, 78, 0.705);
+}
+
+.form-input-section {
+    width: 75%;
+    height: 50vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 10px;
+    margin: 0;
+    padding: 3%;
+    border: none;
+}
+
+.Form-save-btn {
+    border-radius: 20px;
+    color: black;
+    font-weight: bold;
+    border: none;
+    font-size: clamp(11px, 1vw, 22px);
+    text-decoration: none;
+    padding: 10px;
+    background-color: rgb(255, 174, 0);
+    box-shadow: 0px 0px 5px 0px rgba(223, 107, 12, 0.74);
+}
+
+.Form-save-btn:hover {
+    cursor: pointer;
+    background-color: rgb(232, 151, 30);
+}
