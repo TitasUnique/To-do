@@ -1,0 +1,65 @@
+# Ignore node_modules and build files
+Backend/node_modules/
+
+# Ignore backend-specific node_modules (already added)
+Backend/node_modules/
+
+# Ignore logs and debug files
+Backend/*.log
+Backend/npm-debug.log*
+Backend/yarn-debug.log*
+Backend/yarn-error.log*
+
+# Ignore temporary files
+Backend/.env*  # Make sure to include all .env variations
+Backend/.pnp.js  # For Yarn PnP support, if used
+Backend/.pnp/
+
+# Ignore build files (if you transpile backend code from TypeScript or Babel)
+Backend/dist/
+Backend/build/
+
+# Ignore package-lock.json or yarn.lock (optional, depending on your preference)
+Backend/package-lock.json
+Backend/yarn.lock
+
+# Ignore test reports
+Backend/coverage/
+
+# Ignore IDE/Editor configurations (if working on backend code in an IDE)
+Backend/.idea/
+Backend/.vscode/
+
+Frontend/to-do/node_modules/
+
+# Ignore Yarn & npm cache files
+.pnp.js
+Frontend/to-do/.pnp/
+
+# Build, coverage, and log files
+Frontend/to-do/build/
+Frontend/to-do/coverage/
+Frontend/to-do/.next/  # If using Next.js
+
+# OS-specific files
+.DS_Store  # macOS
+Thumbs.db  # Windows
+
+# Environment files (contains secrets)
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# Log files
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Editor/IDE files
+.vscode/
+.idea/
+*.swp  # Vim swap files
+*.suo  # Visual Studio
+*.bak  # Backup files
