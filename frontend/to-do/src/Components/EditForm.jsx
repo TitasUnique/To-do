@@ -17,7 +17,7 @@ const EditForm = ({PreText, CardID, onClose}) => {
       if (!newEditedText.trim()) {
         window.alert("Please Fill All The Details !!");
       } else {
-        fetch(`https://to-do-git-main-titas-projects.vercel.app//api/tasks/${CardID}`, {
+        fetch(`https://to-do-ecru-psi.vercel.app/api/tasks/${CardID}`, {
           method: "PUT",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({ text: newEditedText }),
