@@ -6,9 +6,17 @@ const cors = require("cors");
 const app = express();
 const PORT = process.env.PORT || 3001;
 
+const allowedOrigins = ["https://my-tasks-seven-rho.vercel.app","http://localhost:3000","http://192.168.29.145:3000"];
+
 app.use(cors(
   {
-    origin: ["https://my-tasks-seven-rho.vercel.app"],
+    origin: function (origin, callback) {
+      if(!origin || allowedOrigins.includes(origin)){
+        callback(null, true);
+      } else {
+        callback(new Error("Not allowed by CORS"));
+      }
+    },
     methods:["GET","POST","DELETE","PUT"],
     credentials: true
   }
