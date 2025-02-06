@@ -36,6 +36,11 @@ const taskSchema = new mongoose.Schema({
 
 const Task = mongoose.model("Task", taskSchema);
 
+//Basic API checking
+app.get("/",async (req, res) => {
+  res.json("Hello, API is working !!");
+});
+
 // Endpoint to fetch all tasks
 app.get("/tasks", async (req, res) => {
   try {
