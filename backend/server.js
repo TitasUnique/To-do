@@ -8,7 +8,7 @@ const PORT = process.env.PORT || 3001;
 
 app.use(cors(
   {
-    origin: ["*"],
+    origin: ["https://my-tasks-seven-rho.vercel.app"],
     methods:["GET","POST","DELETE","PUT"],
     credentials: true
   }
