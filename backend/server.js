@@ -1,117 +1,96 @@
 const express = require("express");
+const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
-const fs = require("fs");
-const cors = require("cors"); // Importing CORS
+const cors = require("cors");
+
 const app = express();
 const PORT = 3001;
 
+app.use(cors(
+  {
+    origin: [""],
+    methods:["GET","POST","DELETE","PUT"],
+    credentials: true
+  }
+));
+
+// Middleware
 app.use(bodyParser.json());
-app.use(cors()); // Enabling CORS for the API
+app.use(cors());
 
-// Helper function to read the database
-const readDatabase = (callback) => {
-  fs.readFile("database.json", "utf8", (err, data) => {
-    if (err) return callback(err, null);
-    callback(null, JSON.parse(data));
-  });
-};
+// Connect to MongoDB
+const MONGO_URI = "mongodb+srv://ToDo2025:RdejyWZGYfsE7lL3@to-do.s649l.mongodb.net/?retryWrites=true&w=majority&appName=to-do";
+// mongoose.connect(MONGO_URI, {
+//   useNewUrlParser: true,
+//   useUnifiedTopology: true,
+// })
+mongoose.connect(MONGO_URI)
+.then(() => console.log("MongoDB connected"))
+.catch(err => console.error("MongoDB connection error:", err));
 
-// Helper function to write to the database
-const writeDatabase = (db, callback) => {
-  fs.writeFile("database.json", JSON.stringify(db, null, 2), (err) => {
-    callback(err);
-  });
-};
+// Define Task Schema
+const taskSchema = new mongoose.Schema({
+  text: { type: String, required: true },
+  completed: { type: Boolean, default: false },
+});
 
-// Endpoint to read all tasks
-app.get("/tasks", (req, res) => {
-  readDatabase((err, db) => {
-    if (err) {
-      return res.status(500).json({ error: "Failed to read database." });
-    }
-    res.json(db);
-  });
+const Task = mongoose.model("Task", taskSchema);
+
+// Endpoint to fetch all tasks
+app.get("/tasks", async (req, res) => {
+  try {
+    const tasks = await Task.find();
+    res.json(tasks);
+  } catch (error) {
+    res.status(500).json({ error: "Failed to retrieve tasks." });
+  }
 });
 
 // Endpoint to add a new task
-app.post("/tasks", (req, res) => {
-  const newTask = req.body;
-
-  // Validate task data
-  if (!newTask.text || typeof newTask.text !== "string") {
+app.post("/tasks", async (req, res) => {
+  const { text } = req.body;
+  if (!text || typeof text !== "string") {
     return res.status(400).json({ error: "Task text is required and should be a string." });
   }
 
-  readDatabase((err, db) => {
-    if (err) {
-      return res.status(500).json({ error: "Failed to read database." });
-    }
-
-    // Incremental ID logic
-    let lastId = db.lastId || 0; // Retrieve the last used ID
-    const newId = lastId + 1;
-    newTask.id = newId; // Assigning a new ID to the task
-    db.lastId = newId;
-
-    db.tasks.push(newTask);
-
-    writeDatabase(db, (err) => {
-      if (err) {
-        return res.status(500).json({ error: "Failed to write database." });
-      }
-      res.status(201).json(db.tasks);
-    });
-  });
+  try {
+    const newTask = new Task({ text });
+    await newTask.save();
+    const tasks = await Task.find();
+    res.status(201).json(tasks);
+  } catch (error) {
+    res.status(500).json({ error: "Failed to save task." });
+  }
 });
 
 // Endpoint to delete a task
-app.delete("/tasks/:id", (req, res) => {
-  const taskId = parseInt(req.params.id, 10);
-
-  readDatabase((err, db) => {
-    if (err) {
-      return res.status(500).json({ error: "Failed to read database." });
-    }
-
-    // Filter out the task to be deleted
-    db.tasks = db.tasks.filter((task) => task.id !== taskId);
-
-    writeDatabase(db, (err) => {
-      if (err) {
-        return res.status(500).json({ error: "Failed to write database." });
-      }
-      res.status(200).json(db.tasks);
-    });
-  });
+app.delete("/tasks/:id", async (req, res) => {
+  try {
+    await Task.findByIdAndDelete(req.params.id);
+    const tasks = await Task.find();
+    res.status(200).json(tasks);
+  } catch (error) {
+    res.status(500).json({ error: "Failed to delete task." });
+  }
 });
 
-// Endpoint to update a task (e.g., marking it as completed)
-app.put("/tasks/:id", (req, res) => {
-  const taskId = parseInt(req.params.id, 10);
+// Endpoint to update a task
+app.put("/tasks/:id", async (req, res) => {
   const { text, completed } = req.body;
-
-  readDatabase((err, db) => {
-    if (err) {
-      return res.status(500).json({ error: "Failed to read database." });
-    }
-
-    const taskIndex = db.tasks.findIndex((task) => task.id === taskId);
-
-    if (taskIndex === -1) {
+  try {
+    const updatedTask = await Task.findByIdAndUpdate(
+      req.params.id,
+      { text, completed },
+      { new: true }
+    );
+    if (!updatedTask) {
       return res.status(404).json({ error: "Task not found." });
     }
-
-    // Update the task's status
-    if (text !== undefined) db.tasks[taskIndex].text = text;
-    if (completed !== undefined) db.tasks[taskIndex].completed = completed;
-
-    writeDatabase(db, (err) => {
-      if (err) {
-        return res.status(500).json({ error: "Failed to update database." });
-      }
-      res.status(200).json(db.tasks);
-    });
-  });
+    const tasks = await Task.find();
+    res.status(200).json(tasks);
+  } catch (error) {
+    res.status(500).json({ error: "Failed to retrieve tasks." });
+  }
 });
 
 // Start the server

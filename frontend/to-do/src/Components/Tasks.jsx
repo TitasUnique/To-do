@@ -7,7 +7,7 @@ const Tasks = ({ onAddCardOpen, onEditCardOpen }) => {
   const tasks = useSelector((state) => state.cardsData);
 
   useEffect(() => {
-    fetch("https://to-do-ecru-psi.vercel.app/api/tasks") //http://localhost:3001/tasks
+    fetch("http://localhost:3001/tasks") //http://localhost:3001/tasks
       .then((response) => {
         if (!response.ok) {
           throw new Error("Error fetching tasks");
@@ -17,17 +17,17 @@ const Tasks = ({ onAddCardOpen, onEditCardOpen }) => {
       .then((data) => {
         dispatch({
           type: "reduxDataUpload",
-          payload: data.tasks,
+          payload: data,
         });
       })
       .catch((error) => console.error("Error fetching tasks:", error));
   }, [dispatch]);
 
   const handelTaskStatus = (taskId) => {
-    const taskStatusUpdate = tasks.find((task) => task.id === taskId);
+    const taskStatusUpdate = tasks.find((task) => task._id === taskId);
     const updatedTaskStatus = {...taskStatusUpdate, completed: !taskStatusUpdate.completed,};
 
-    fetch(`https://to-do-ecru-psi.vercel.app/api/tasks/${taskId}`, {
+    fetch(`http://localhost:3001/tasks/${taskId}`, {
       method: "PUT",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ completed: updatedTaskStatus.completed }),
@@ -43,13 +43,12 @@ const Tasks = ({ onAddCardOpen, onEditCardOpen }) => {
           type: "updateTaskStatus",
           payload: updatedStatus,
         });
-        console.log(updatedStatus);
       })
       .catch((error) => console.error("Error updating task:", error));
   };
 
   const handelDelete = (taskId) => {
-    fetch(`https://to-do-ecru-psi.vercel.app/api/tasks/${taskId}`, {
+    fetch(`http://localhost:3001/tasks/${taskId}`, {
       method: "DELETE",
     })
       .then((response) => {
@@ -70,8 +69,8 @@ const Tasks = ({ onAddCardOpen, onEditCardOpen }) => {
   return (
     <div className="main-div">
       <ul className="card-main-ul">
-        {tasks.map((task) => (
-          <li className="cards-li" key={task.id}>
+        {tasks && tasks.map((task) => (
+          <li className="cards-li" key={task._id}>
             <div className="card-task-data">
               <span>{task.text}</span>
             </div>
@@ -80,19 +79,19 @@ const Tasks = ({ onAddCardOpen, onEditCardOpen }) => {
                 className={
                   task.completed ? "card-state-green" : "card-state-red"
                 }
-                onClick={() => handelTaskStatus(task.id)}
+                onClick={() => handelTaskStatus(task._id)}
               >
                 {task.completed ? "Done" : "Pending"}
               </button>
               <button
                 className="edit-cardText-btn"
-                onClick={() => onEditCardOpen(task.id, task.text)}
+                onClick={() => onEditCardOpen(task._id, task.text)}
               >
                 <i className="fa-solid fa-pen" style={{ color: "#000000" }}></i>
               </button>
               <button
                 className="card-del-btn"
-                onClick={() => handelDelete(task.id)}
+                onClick={() => handelDelete(task._id)}
               >
                 <i
                   className="fa-solid fa-trash-can"
