@@ -4,11 +4,11 @@ const bodyParser = require("body-parser");
 const cors = require("cors");
 
 const app = express();
-const PORT = 3001;
+const PORT = process.env.PORT || 3001;
 
 app.use(cors(
   {
-    origin: ["https://movie-ticket-booking-five-tau.vercel.app/"],
+    origin: ["*"],
     methods:["GET","POST","DELETE","PUT"],
     credentials: true
   }
@@ -16,7 +16,7 @@ app.use(cors(
 
 // Middleware
 app.use(bodyParser.json());
-app.use(cors());
+/* app.use(cors()); */
 
 // Connect to MongoDB
 const MONGO_URI = "mongodb+srv://ToDo2025:RdejyWZGYfsE7lL3@to-do.s649l.mongodb.net/?retryWrites=true&w=majority&appName=to-do";
@@ -96,6 +96,11 @@ app.put("/tasks/:id", async (req, res) => {
   } catch (error) {
     res.status(500).json({ error: "Failed to retrieve tasks." });
   }
+});
+
+// Catch-all route for undefined routes
+app.use((req, res) => {
+  res.status(404).json({ message: "Route not found" });
 });
 
 // Start the server
