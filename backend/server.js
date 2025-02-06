@@ -19,7 +19,7 @@ app.use(bodyParser.json());
 /* app.use(cors()); */
 
 // Connect to MongoDB
-const MONGO_URI = "mongodb+srv://ToDo2025:RdejyWZGYfsE7lL3@to-do.s649l.mongodb.net/?retryWrites=true&w=majority&appName=to-do";
+const MONGO_URI = process.env.MONGO_URI || "mongodb+srv://ToDo2025:RdejyWZGYfsE7lL3@to-do.s649l.mongodb.net/?retryWrites=true&w=majority&appName=to-do";
 // mongoose.connect(MONGO_URI, {
 //   useNewUrlParser: true,
 //   useUnifiedTopology: true,
