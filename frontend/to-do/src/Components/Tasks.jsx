@@ -27,7 +27,7 @@ const Tasks = ({ onAddCardOpen, onEditCardOpen }) => {
     const taskStatusUpdate = tasks.find((task) => task._id === taskId);
     const updatedTaskStatus = {...taskStatusUpdate, completed: !taskStatusUpdate.completed,};
 
-    fetch(`https://to-do-six-mauve.vercel.app/${taskId}`, {
+    fetch(`https://to-do-six-mauve.vercel.app/tasks/${taskId}`, {
       method: "PUT",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ completed: updatedTaskStatus.completed }),
@@ -48,7 +48,7 @@ const Tasks = ({ onAddCardOpen, onEditCardOpen }) => {
   };
 
   const handelDelete = (taskId) => {
-    fetch(`https://to-do-six-mauve.vercel.app/${taskId}`, {
+    fetch(`https://to-do-six-mauve.vercel.app/tasks/${taskId}`, {
       method: "DELETE",
     })
       .then((response) => {
