@@ -8,7 +8,7 @@ const PORT = 3001;
 
 app.use(cors(
   {
-    origin: [""],
+    origin: ["https://movie-ticket-booking-five-tau.vercel.app/"],
     methods:["GET","POST","DELETE","PUT"],
     credentials: true
   }
