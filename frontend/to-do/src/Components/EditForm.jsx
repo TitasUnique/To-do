@@ -17,7 +17,7 @@ const EditForm = ({PreText, CardID, onClose}) => {
       if (!newEditedText.trim()) {
         window.alert("Please Fill All The Details !!");
       } else {
-        fetch(`http://localhost:3001/tasks/${CardID}`, {
+        fetch(`https://to-do-six-mauve.vercel.app/tasks/${CardID}`, {
           method: "PUT",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({ text: newEditedText }),

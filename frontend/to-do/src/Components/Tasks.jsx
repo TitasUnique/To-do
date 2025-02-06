@@ -7,7 +7,7 @@ const Tasks = ({ onAddCardOpen, onEditCardOpen }) => {
   const tasks = useSelector((state) => state.cardsData);
 
   useEffect(() => {
-    fetch("http://localhost:3001/tasks") //http://localhost:3001/tasks
+    fetch("https://to-do-six-mauve.vercel.app/tasks") //http://localhost:3001/tasks
       .then((response) => {
         if (!response.ok) {
           throw new Error("Error fetching tasks");
@@ -27,7 +27,7 @@ const Tasks = ({ onAddCardOpen, onEditCardOpen }) => {
     const taskStatusUpdate = tasks.find((task) => task._id === taskId);
     const updatedTaskStatus = {...taskStatusUpdate, completed: !taskStatusUpdate.completed,};
 
-    fetch(`http://localhost:3001/tasks/${taskId}`, {
+    fetch(`https://to-do-six-mauve.vercel.app/${taskId}`, {
       method: "PUT",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ completed: updatedTaskStatus.completed }),
@@ -48,7 +48,7 @@ const Tasks = ({ onAddCardOpen, onEditCardOpen }) => {
   };
 
   const handelDelete = (taskId) => {
-    fetch(`http://localhost:3001/tasks/${taskId}`, {
+    fetch(`https://to-do-six-mauve.vercel.app/${taskId}`, {
       method: "DELETE",
     })
       .then((response) => {
