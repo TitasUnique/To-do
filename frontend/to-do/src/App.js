@@ -4,6 +4,8 @@ import Form from "../src/Components/AddTaskForm";
 import EditTask from "../src/Components/EditForm";
 import "./App.css";
 
+// import LoadingBalls from "../src/Components/LoadingScreen";
+
 const App = () => {
 
   const [showAddFormPopup, setShowAddFormPopup] = useState(false);
@@ -32,6 +34,7 @@ const App = () => {
 
   return (
     <>
+    {/* <LoadingBalls/> */}
       {showAddFormPopup && <Form onClose={handelAddFormClose}/>}
       {showEditFormPopup && <EditTask onClose={handelEditFormClose} PreText={PreText} CardID={CardID}/>}
       <Tasks onAddCardOpen={handelAddFormOpen} onEditCardOpen={handelEditFormOpen}/>

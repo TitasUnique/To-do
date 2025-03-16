@@ -1,12 +1,21 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import "./Tasks.css";
 import { useDispatch, useSelector } from "react-redux";
+
+import Loading from "../Components/LoadingScreen";
+import PencilLoading from "../Components/PencilLoader";
+import DeleteLoader from "./DeleteLoader";
 
 const Tasks = ({ onAddCardOpen, onEditCardOpen }) => {
   const dispatch = useDispatch();
   const tasks = useSelector((state) => state.cardsData);
 
+  const [loading, setLoading] = useState(false);
+  const [PLoading, setPLoading] = useState(false);
+  const [DeleteLoading, setDeleteLoading] = useState(false);
+
   useEffect(() => {
+    setLoading(true);
     fetch("https://to-do-six-mauve.vercel.app/tasks") //http://localhost:3001/tasks
       .then((response) => {
         if (!response.ok) {
@@ -20,10 +29,12 @@ const Tasks = ({ onAddCardOpen, onEditCardOpen }) => {
           payload: data,
         });
       })
-      .catch((error) => console.error("Error fetching tasks:", error));
+      .catch((error) => console.error("Error fetching tasks:", error))
+      .finally(()=>{setLoading(false)});
   }, [dispatch]);
 
   const handelTaskStatus = (taskId) => {
+    setPLoading(true);
     const taskStatusUpdate = tasks.find((task) => task._id === taskId);
     const updatedTaskStatus = {...taskStatusUpdate, completed: !taskStatusUpdate.completed,};
 
@@ -44,10 +55,14 @@ const Tasks = ({ onAddCardOpen, onEditCardOpen }) => {
           payload: updatedStatus,
         });
       })
-      .catch((error) => console.error("Error updating task:", error));
+      .catch((error) => console.error("Error updating task:", error))
+      .finally(()=>{
+        setPLoading(false);
+      });
   };
 
   const handelDelete = (taskId) => {
+    setDeleteLoading(true);
     fetch(`https://to-do-six-mauve.vercel.app/tasks/${taskId}`, {
       method: "DELETE",
     })
@@ -63,13 +78,16 @@ const Tasks = ({ onAddCardOpen, onEditCardOpen }) => {
           payload: updateDeleteData,
         });
       })
-      .catch((error) => console.error("Error deleting task:", error));
+      .catch((error) => console.error("Error deleting task:", error))
+      .finally(()=>{setDeleteLoading(false)});
   };
 
   return (
+    <>
+    {loading ? (<Loading />) : PLoading ? (<PencilLoading/>) : DeleteLoading ? (<DeleteLoader/>) : (((
     <div className="main-div">
       <ul className="card-main-ul">
-        {tasks && tasks.map((task) => (
+        {tasks?.map((task) => (
           <li className="cards-li" key={task._id}>
             <div className="card-task-data">
               <span>{task.text}</span>
@@ -109,6 +127,8 @@ const Tasks = ({ onAddCardOpen, onEditCardOpen }) => {
         </button>
       </ul>
     </div>
+    )))}
+    </>
   );
 };
 

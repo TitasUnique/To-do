@@ -1,0 +1,66 @@
+.card {
+  background-color: var(--bg-color);
+  padding: 2rem 3rem;
+  border-radius: 1.25rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 300px;
+}
+
+.loader {
+  color: rgb(113, 111, 111);
+  font-family: "Poppins", sans-serif;
+  font-weight: 600;
+  font-size: 25px;
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+p {
+  font-size: 100px; /* Increased text size */
+  margin: 0;
+}
+
+.words {
+  overflow: hidden;
+  position: relative;
+  height: 100px; /* Adjust height to fit larger text */
+  display: flex;
+  flex-direction: column;
+}
+
+.words::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    var(--bg-color) 10%,
+    transparent 30%,
+    transparent 70%,
+    var(--bg-color) 90%
+  );
+  z-index: 10;
+}
+
+.word {
+  font-size: 100px; /* Increased font size */
+  color: #956afa;
+  display: flex;
+  align-items: center;
+  height: 100px; /* Match height to ensure proper scrolling */
+  animation: spin_4991 5s infinite;
+}
+
+/* Updated animation to match larger text */
+@keyframes spin_4991 {
+  10% { transform: translateY(-105%); }
+  25% { transform: translateY(-100%); }
+  35% { transform: translateY(-205%); }
+  50% { transform: translateY(-200%); }
+  60% { transform: translateY(-305%); }
+  75% { transform: translateY(-300%); }
+  85% { transform: translateY(-405%); }
+  100% { transform: translateY(-400%); }
+}
